@@ -2398,6 +2398,10 @@ build_ffmpeg() {
       # this one kills gdb workability for static build? ai ai [?] XXXX
       config_options+=" --disable-libgme"
     fi
+    do_tiny_build=y
+    if [[ "$do_tiny_build" = "y" ]]; then
+    	config_options = " --disable-all `python ../../get_autodetect_options.py --opts` --enable-ffmpeg --enable-small --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale --enable-decoder=h264 --enable-encoder=rawvideo,libx264 --enable-parser=h264 --enable-protocol=file --enable-demuxer=mov --enable-muxer=rawvideo,mp4 --enable-filter=scale --enable-gpl --enable-libx264 "
+    fi
     config_options+=" $extra_postpend_configure_options"
 
     do_configure "$config_options"
